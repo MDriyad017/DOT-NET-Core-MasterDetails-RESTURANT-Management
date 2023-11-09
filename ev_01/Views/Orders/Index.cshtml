@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ev_01.Models.Order>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="display-5 alert alert-primary mt-2 text-center">Order List</h1>
+
+<div class="row">
+    <div class="col">
+        <div class="d-flex justify-content-end">
+            <a asp-action="Create" asp-controller="Orders" class="btn btn-outline-primary fw-bold mt-2 mb-3"><i class="fa fa-plus"></i> ADD Order</a>
+        </div>
+
+        @foreach (var order in Model)
+        {
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        <img src="@order.Picture" width="34">
+                        &nbsp;&nbsp;&nbsp;
+                        <b>Customer: </b>@Html.DisplayFor(x => order.CustomerName)
+                        &nbsp;&nbsp;&nbsp;
+                        <b>Order Date: </b>@Html.DisplayFor(x => order.OrderDate)
+                        &nbsp;&nbsp;&nbsp;
+                        <b>Amount Paid: </b>@Html.DisplayFor(x => order.AmountPaid)
+                    </div>
+                    <div>
+                        <a asp-action="Edit" asp-controller="Orders" asp-route-id="@order.OrderId" class="btn btn-outline-success btn-sm"><i class="fa fa-edit"></i></a>&nbsp;
+                        <a asp-action="Delete" asp-controller="Orders" asp-route-id="@order.OrderId" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Table Number</th>
+                                <th>Food Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in order.Receipts)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(x => item.Order.TableNumber)</td>
+                                    <td>@Html.DisplayFor(x => item.Food.FoodName)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+
